@@ -66,7 +66,11 @@ p{margin:0}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink)}
 .kicker::before{content:"";width:28px;height:3px;background:var(--orange)}
 .hero h1{font-size:clamp(42px,6vw,80px);font-weight:900;font-stretch:88%;letter-spacing:-.02em;margin:20px 0 24px;text-transform:uppercase}
-.hero h1 em{font-style:normal;color:var(--orange);display:block}
+.hero h1 .ln{display:block;overflow:hidden;padding:0 .02em .06em;margin-bottom:-.06em}
+.hero h1 .ln>span,.hero h1 .ln>em{display:inline-block}
+.hero h1 em{font-style:normal;color:var(--orange);position:relative}
+.hero h1 em::after{content:"";position:absolute;left:.02em;right:.02em;bottom:.02em;height:.09em;background:repeating-linear-gradient(-45deg,var(--ink) 0 .12em,var(--orange) .12em .24em);border-radius:2px}
+.reveal-h{display:block}
 .hero .lead{font-size:20px;color:var(--muted);max-width:56ch}
 .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
 .hero-card{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:28px 32px 32px;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden}
@@ -156,8 +160,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 /* Entrada */
 @media (prefers-reduced-motion:no-preference){
-  .hero h1,.hero .lead,.hero .cta,.hero-card{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
-  .hero .lead{animation-delay:.08s}.hero .cta{animation-delay:.16s}.hero-card{animation-delay:.12s}
+  .hero .lead,.hero .cta,.hero-card{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+  .hero h1 .ln>span,.hero h1 .ln>em{animation:lineUp .9s cubic-bezier(.16,.84,.24,1) both;animation-delay:calc(var(--i) * 120ms)}
+  .hero h1 em::after{transform-origin:left center;animation:tape .7s cubic-bezier(.65,0,.35,1) .75s both}
+  @keyframes lineUp{from{transform:translateY(110%)}to{transform:none}}
+  @keyframes tape{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .sec-head h2.waiting,.contact h2.waiting{opacity:0;transform:translateY(28px)}
+  .sec-head h2.in,.contact h2.in{opacity:1;transform:none;transition:opacity .8s ease,transform .9s cubic-bezier(.16,.84,.24,1)}
+  .hero .lead{animation-delay:.45s}.hero .cta{animation-delay:.55s}.hero-card{animation-delay:.3s}
   @keyframes rise{from{opacity:.001;transform:translateY(16px)}to{opacity:1;transform:none}}
 }
 
@@ -199,7 +209,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="wrap">
       <div>
         <p class="kicker">Seguridad industrial y sistemas de gestión · Bogotá</p>
-        <h1>Agilidad y <em>protección</em> para su empresa</h1>
+        <h1><span class="ln"><span style="--i:0">Agilidad y</span></span><span class="ln"><em style="--i:1">protección</em></span><span class="ln"><span style="--i:2">para su</span></span><span class="ln"><span style="--i:3">empresa</span></span></h1>
         <p class="lead">Implementamos y mantenemos su SG-SST y sus sistemas de gestión, preparamos a su equipo para emergencias y suministramos elementos de protección personal certificados.</p>
         <div class="cta">
           <a class="btn btn-gl" href="https://wa.me/573125414125?text=Hola%20GL%20Group%20Services%2C%20quisiera%20una%20asesor%C3%ADa." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg>Solicitar asesoría</a>
@@ -372,7 +382,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <footer>
   <div class="wrap">
-    <span>© GL Group Services · Agilidad y protección · v4</span>
+    <span>© GL Group Services · Agilidad y protección · v5</span>
     <span>Bogotá, Colombia</span>
   </div>
 </footer>
@@ -385,6 +395,17 @@ document.querySelectorAll('[data-copy]').forEach(function(b){
     try{navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}catch(e){done(false)}
   });
 });
+(function(){
+  try{
+    if(!window.matchMedia||window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
+    var els=[].slice.call(document.querySelectorAll('.sec-head h2,.contact h2'));
+    var vh=window.innerHeight;
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');e.target.classList.remove('waiting');io.unobserve(e.target);}});
+    },{threshold:.2});
+    els.forEach(function(el){if(el.getBoundingClientRect().top>vh){el.classList.add('waiting');io.observe(el);}});
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
