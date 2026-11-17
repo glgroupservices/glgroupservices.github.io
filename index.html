@@ -65,16 +65,16 @@ p{margin:0}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:center}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink)}
 .kicker::before{content:"";width:28px;height:3px;background:var(--orange)}
-.hero h1{font-size:clamp(44px,6.4vw,84px);font-weight:900;font-stretch:100%;letter-spacing:-.02em;margin:20px 0 24px;text-transform:uppercase}
+.hero h1{font-size:clamp(42px,6vw,80px);font-weight:900;font-stretch:88%;letter-spacing:-.02em;margin:20px 0 24px;text-transform:uppercase}
 .hero h1 em{font-style:normal;color:var(--orange);display:block}
 .hero .lead{font-size:20px;color:var(--muted);max-width:56ch}
 .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
-.hero-card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:32px;display:flex;flex-direction:column;gap:24px;position:relative;overflow:hidden}
+.hero-card{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:32px;display:flex;flex-direction:column;gap:24px;position:relative;overflow:hidden}
 .hero-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(-45deg,var(--ink) 0 12px,var(--orange) 12px 24px)}
 .hero-card img{width:100%;max-width:360px;margin:0 auto}
 .facts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding-bottom:12px}
 .fact{border-top:2px solid var(--ink);padding-top:10px}
-.fact b{display:block;font-family:var(--display);font-stretch:100%;font-size:19px;font-weight:800;overflow-wrap:anywhere}
+.fact b{display:block;font-family:var(--display);font-stretch:90%;font-size:18px;font-weight:800;overflow-wrap:anywhere}
 .fact span{font-size:14px;line-height:1.4;color:var(--muted)}
 
 /* Secciones */
@@ -367,7 +367,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <footer>
   <div class="wrap">
-    <span>© GL Group Services · Agilidad y protección</span>
+    <span>© GL Group Services · Agilidad y protección · v3</span>
     <span>Bogotá, Colombia</span>
   </div>
 </footer>
